@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: "Kanit", sans-serif;
+    background-image: url(assets/Fundo.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+}
+
+#login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+   
+.card {
+    width: 25%;
+    height: 30%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #2b2b2b;
+    color: aliceblue;
+}
+
+input {
+    width: 80%;
+    border-radius: 6px;
+    padding: 15px;
+    font-weight: 800;
+    margin: 10px;
+}
+
+#continueButton {
+    width: 80%;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sendButton {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#continue {
+    width: 30%;
+    padding: 10px;
+    margin: 20px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    background: rgb(31, 31, 31);
+    cursor: pointer;
+}
+
+#send {
+    width: 140vh;
+    padding: 10px;
+    margin: 20px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    background: rgb(31, 31, 31);
+    cursor: pointer;
+}
+
+
+#chat {
+    width: 30%;
+    height: 60%;
+    border-radius: 15px;
+    display: flex;
+    /*align-items: center;
+    justify-content: center;*/
+    flex-direction: column;
+    background: #2b2b2b;
+    color: aliceblue;
+}
+
+#divs {
+    margin: 10px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#messages {
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#messageInput {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#message {
+    width: 80%;
+    padding: 10px;
+    border-radius: 6px;
+}

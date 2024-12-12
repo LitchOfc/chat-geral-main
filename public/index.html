@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="imagens/Logo_Mercado.png" type="image/x-icon">
+
+
+</head>
+<body>
+    <!-- Tela inicial para pedir o nome -->
+    
+    
+<div id="login">
+
+    <hr style="width: 460px; height: 2px; background-color: rgb(31, 31, 31); border: none; margin: 30px auto; position: relative; top: 340px;">
+
+    <div class="card">
+        <h1>Real Time Chat</h1>
+        
+        <div id="divs">
+        <input id="username" type="text" placeholder="Digite seu nome:"/>
+        </div>
+    </div>
+        <div id="continueButton">
+        <button id="continue">Continuar</button>
+        </div>
+</div>
+
+    <div id="chat" style="display: none;">
+       <div id="messages"></div>
+       <div id="messageInput">
+            <input id="message" type="text" placeholder="Digite uma mensagem:"/>
+       </div>
+       <div id="sendButton">
+            <button id="send">Enviar</button>
+       </div>
+    </div>
+    
+    <script>
+        let ws;
+        let username;
+        const loginDiv = document.getElementById('login')
+        const chatDiv = document.getElementById('chat')
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message');
+        const continueButton = document.getElementById('continue');
+        const sendButton = document.getElementById('send');
+
+        // Função para entrar no chat
+        continueButton.addEventListener('click', () => {
+            username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Por favor, digite um nome!');
+                return;
+            }
+        
+           // Conecta ao servidor WebSocket
+           ws = new WebSocket('ws://localhost:3000');
+
+           // Quando conectado ao servidor
+           ws.onopen = () => {
+               loginDiv.style.display = 'none';
+                   chatDiv.style.display = 'block';
+                   messagesDiv.innerHTML += `<p><strong>Bem-vindo, ${username}!</strong></p>`;
+           };
+
+           // Quando receber uma mensagem do servidor
+           ws.onmessage = (event) => {
+               const data = JSON.parse(event.data); // Parse da mensagem em JSON
+               messagesDiv.innerHTML += `<p><strong>${data.user}:</strong> ${data.message}</p>`;
+               messagesDiv.scrollTop = messagesDiv.scrollHeight; // Rolagem automática
+           };
+
+           // Quando ocorrer um erro
+           ws.onerror = (error) => {
+               console.error('Erro no WebSocket:', error);
+           };
+
+           // Quando a conexão for encerrada
+           ws.onclose = () => {
+               messagesDiv.innerHTML += '<p><em>Conexão encerrada.</em></p>';
+           };
+
+           // Enviar mensagem ao servidor
+           function sendMessage() {
+               const message = messageInput.value.trim();
+               if (!message) return;
+
+               // Envia o nome e a mensagem
+               ws.send(JSON.stringify({ user: username, message }));
+               messageInput.value = '';
+           }
+        });
+
+        // Função para enviar uma mensagem
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Envia a mensagem com o nome do usuário
+            ws.send(JSON.stringify({ user: username, message }));
+            messageInput.value = ''; // Limpa o campo de entrada
+        });
+    </script>
+</body>
+</html>
